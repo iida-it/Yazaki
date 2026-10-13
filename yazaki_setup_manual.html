@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <!-- Chosen Palette: Slate & Cyber Navy (Dark theme for tech ops manual with background #0d1117, card background #161b22, accents in electric blue #58a6ff, success green #3fb950, warning gold #d29922, error red #f85149) -->
+    <!-- Application Structure Plan: Interactive technical deployment dashboard structured into: 1. System Architecture Pipeline (HTML/CSS step cards), 2. Interactive System Readiness Checklist with real-time progress calculation, 3. Step-by-Step Installation & Configuration Guide with one-click code copy, 4. Full Updated Source Code viewer (app.py & Run_App.bat), 5. Filterable Troubleshooting Matrix. Chosen for fast offline deployment on client PCs. -->
+    <!-- Visualization & Content Choices: Process pipeline -> HTML/CSS step grid; Checklist progress -> Dynamic JS progress bar; Troubleshooting -> Dynamic JS text search filter. CONFIRMING NO SVG OR MERMAID JS USED. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yazaki DocuWorks & PDF Processor — Client Deployment Manual</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --border-color: #30363d;
+            --text-main: #c9d1d9;
+            --text-heading: #f0f6fc;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-orange: #d29922;
+            --accent-red: #f85149;
+            --code-bg: #0b0f14;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        .code-block {
+            position: relative;
+            background-color: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 16px;
+            background-color: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+            font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+            font-size: 0.85rem;
+            color: #8b949e;
+        }
+
+        pre {
+            padding: 16px;
+            overflow-x: auto;
+            color: #79c0ff;
+            font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        code.inline {
+            background-color: #21262d;
+            border: 1px solid #30363d;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #ff7b72;
+            font-size: 0.875em;
+            font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+        }
+
+        .btn-copy {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-copy:hover {
+            background-color: #30363d;
+            color: var(--text-heading);
+        }
+
+        .callout {
+            border-left: 4px solid var(--accent-blue);
+            background-color: #0f1923;
+            padding: 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 16px 0;
+        }
+
+        .callout-warn {
+            border-left-color: var(--accent-orange);
+            background-color: #1f1b0e;
+        }
+
+        .callout-danger {
+            border-left-color: var(--accent-red);
+            background-color: #220f12;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #484f58;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-16">
+
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+
+    <!-- Header Section -->
+    <header class="border-b border-[#30363d] pb-6 mb-8">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+            <div>
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="inline-block bg-[#1f6feb26] text-[#58a6ff] border border-[#388bfd4d] text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+                        Client Deployment & Operations Guide
+                    </span>
+                    <span class="inline-block bg-[#23863626] text-[#3fb950] border border-[#23863666] text-xs font-semibold px-3 py-1 rounded-full">
+                        ⚡ 1-Click Automation Enabled
+                    </span>
+                    <span class="inline-block bg-[#a371f726] text-[#d2a8ff] border border-[#a371f766] text-xs font-semibold px-3 py-1 rounded-full">
+                        📊 Formatted Excel Subtotals (ファイル合計)
+                    </span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-bold text-[#f0f6fc] tracking-tight">
+                    Yazaki DocuWorks (.xdw) to Excel Web App
+                </h1>
+                <p class="text-[#8b949e] text-base mt-2">
+                    Client Windows PC များတွင် Streamlit Web Portal တပ်ဆင်ခြင်းနှင့် Bullzip Printer ချိန်ညှိခြင်း အဆင့်ဆင့် လမ်းညွှန်
+                </p>
+            </div>
+            <div class="bg-[#161b22] border border-[#30363d] rounded-lg p-3 text-right text-xs text-[#8b949e]">
+                <p class="font-semibold text-[#c9d1d9]">Target System: Windows 10/11 (64-bit)</p>
+                <p>Environment: Offline / Localhost</p>
+                <p>Last Verified: October 2026 (v2.1 Subtotals Update)</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Architecture Overview -->
+    <section class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 mb-8 shadow-lg">
+        <h2 class="text-xl font-bold text-[#f0f6fc] mb-4 flex items-center gap-2 border-b border-[#30363d] pb-3">
+            <span>🛠️</span> 1. စနစ်၏ အလုပ်လုပ်ပုံ (System Architecture)
+        </h2>
+        <p class="mb-4 text-sm text-[#c9d1d9]">
+            ဤစနစ်သည် User ၏ Windows စက်ပေါ်တွင် Localhost အဖြစ် တိုက်ရိုက် run သည့် စနစ်ဖြစ်ပြီး <strong>1-Click Full Automation</strong> အပြင် လိုအပ်ပါက သီးခြားခွဲသုံးနိုင်သော <strong>Standalone Stages (၂) ခု</strong> ပါဝင်ဖွဲ့စည်းထားပါသည်။
+        </p>
+        
+        <!-- Highlight: 1-Click Automation Banner -->
+        <div class="bg-[#1f6feb15] border border-[#388bfd66] rounded-xl p-5 mb-5">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                <span class="bg-[#238636] text-white font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">
+                    ⚡ NEW PRIMARY FEATURE &bull; 1-CLICK AUTOMATION
+                </span>
+                <span class="text-xs text-[#58a6ff] font-semibold">End-to-End Pipeline (.xdw ➔ PDF ➔ Excel)</span>
+            </div>
+            <h3 class="text-lg font-bold text-[#f0f6fc] mb-2">⚡ တစ်ချက်နှိပ်ရုံဖြင့် PDF ပြောင်းလဲခြင်းနှင့် Excel ထုတ်ယူခြင်း (Full Automation)</h3>
+            <p class="text-xs text-[#c9d1d9] leading-relaxed mb-3">
+                .xdw ဖိုင်များကို တင်လိုက်ရုံဖြင့် အဆင့် ၁ (PDF သို့ တိတ်တဆိတ် ကူးပြောင်းခြင်း) နှင့် အဆင့် ၂ (PDF မှ ဇယားဒေတာများ ထုတ်ယူ၍ Excel တွက်ချက်ခြင်း) တို့ကို ကြားထဲတွင် User မှ ပြန်တင်စရာမလိုဘဲ <strong>တစ်ဆက်တည်း အလိုအလျောက် ဆောင်ရွက်ပေးပါသည်</strong>။ ပြီးဆုံးပါက Excel Report နှင့် PDF Zip ဖိုင်နှစ်မျိုးလုံးကို ချက်ချင်း Download ရယူနိုင်ပါသည်။
+            </p>
+            <div class="bg-[#0b0f14] border border-[#30363d] p-3 rounded-lg text-xs font-mono text-[#79c0ff] overflow-x-auto">
+                Upload .xdw Files ➔ [Auto Virtual Print] ➔ PDF_Output/ ➔ [Direct In-Memory Table Parsing] ➔ Consolidated Excel (.xlsx) + PDF (.zip)
+            </div>
+        </div>
+
+        <!-- 2 Column Standalone Modes -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-2">
+            <!-- Stage 1 Box -->
+            <div class="bg-[#0d1117] border border-[#30363d] rounded-lg p-5">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="bg-[#1f6feb26] text-[#58a6ff] font-bold text-xs px-2.5 py-1 rounded">STAGE 1 (Standalone)</span>
+                    <span class="text-xs text-[#8b949e]">Silent Background Printing</span>
+                </div>
+                <h3 class="text-base font-semibold text-[#f0f6fc] mb-2">XDW Files &rarr; PDF Files</h3>
+                <p class="text-xs text-[#8b949e] mb-3">
+                    Excel မထုတ်ဘဲ .xdw ဖိုင်များကို PDF အဖြစ်သာ သီးသန့် အမြောက်အမြား ပြောင်းလဲလိုပါက အသုံးပြုနိုင်ပါသည်။
+                </p>
+                <div class="bg-[#21262d] p-2.5 rounded text-xs font-mono text-[#79c0ff]">
+                    dwvlt.exe /p "file.xdw" &rarr; Bullzip Virtual Spool &rarr; PDF_Output/
+                </div>
+            </div>
+
+            <!-- Stage 2 Box -->
+            <div class="bg-[#0d1117] border border-[#30363d] rounded-lg p-5">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="bg-[#23863626] text-[#3fb950] font-bold text-xs px-2.5 py-1 rounded">STAGE 2 (Standalone)</span>
+                    <span class="text-xs text-[#8b949e]">Table Extraction Engine</span>
+                </div>
+                <h3 class="text-base font-semibold text-[#f0f6fc] mb-2">PDF Files &rarr; Consolidated Excel</h3>
+                <p class="text-xs text-[#8b949e] mb-3">
+                    ရှိပြီးသား PDF ဖိုင်များထဲမှ <em>"適合"</em> ဇယားဒေတာများကိုသာ သီးသန့် Extract လုပ်၍ Excel (.xlsx) ထုတ်ယူလိုပါက အသုံးပြုနိုင်ပါသည်။
+                </p>
+                <div class="bg-[#21262d] p-2.5 rounded text-xs font-mono text-[#3fb950]">
+                    pdfplumber &rarr; pandas regex parsing &rarr; Report/*.xlsx
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Excel Report Format & Group Subtotals -->
+    <section class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 mb-8 shadow-lg">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#30363d] pb-3 mb-4">
+            <h2 class="text-xl font-bold text-[#f0f6fc] flex items-center gap-2">
+                <span>📊</span> 2. Excel Report ထွက်ရှိမှု ပုံစံသစ် (Consolidated Excel Report Format)
+            </h2>
+            <span class="bg-[#23863626] text-[#3fb950] text-xs font-semibold px-3 py-1 rounded-full border border-[#238636]">
+                ✨ HZ6**** Group Sum & Color Styling
+            </span>
+        </div>
+        <p class="text-xs text-[#c9d1d9] leading-relaxed mb-4">
+            ထုတ်ယူလိုက်သော Excel Report (<code class="inline">マンション納品明細書_*.xlsx</code>) တွင် ဖိုင်တစ်ခုချင်းစီ (<code class="inline">HZ6****.pdf</code>) အလိုက် <strong>分岐本数 စုစုပေါင်း (Subtotal)</strong> ကို အလိုအလျောက် ပေါင်းစပ်ပေးထားပြီး အောက်ပါအတိုင်း သပ်ရပ်လှပစွာ ဖွဲ့စည်းပေးထားပါသည်-
+        </p>
+
+        <!-- Feature Points -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-5 text-xs">
+            <div class="bg-[#0d1117] border border-[#30363d] p-3 rounded-lg">
+                <div class="text-[#58a6ff] font-bold mb-1">🧮 အလိုအလျောက် ဖိုင်အလိုက်ပေါင်းခြင်း</div>
+                <p class="text-[#8b949e]">Column E တွင် <strong class="text-[#f0f6fc]">"ファイル合計"</strong> အဖြစ် ဖိုင်တစ်ခုချင်းစီ၏ စုစုပေါင်း本数 ကို <code class="inline">=SUM(D...:D...)</code> ဖြင့် အလိုအလျောက် တွက်ချက်ထည့်သွင်းပေးပါသည်။</p>
+            </div>
+            <div class="bg-[#0d1117] border border-[#30363d] p-3 rounded-lg">
+                <div class="text-[#3fb950] font-bold mb-1">🔗 ဒေါင်လိုက် Cells ပေါင်းစပ်ခြင်း (Merge)</div>
+                <p class="text-[#8b949e]">ဖိုင်တစ်ခုတည်းအောက်ရှိ Rows များအားလုံးကို Column E တွင် ဒေါင်လိုက် <strong>Merge Cells</strong> လုပ်ပေးထားပြီး ဂဏန်းတန်ဖိုးကို အလယ်ဗဟို (Center) တွင် <strong>Bold</strong> ဖြင့် ထင်ရှားစွာ ပြသပေးပါသည်။</p>
+            </div>
+            <div class="bg-[#0d1117] border border-[#30363d] p-3 rounded-lg">
+                <div class="text-[#d2a8ff] font-bold mb-1">🎨 ဖိုင်အလိုက် အရောင်ခွဲခြားပေးခြင်း</div>
+                <p class="text-[#8b949e]">Column B (<strong class="text-[#f0f6fc]">File Name</strong>) တွင် ဖိုင်တစ်ခုချင်းစီကို အဝါ၊ လိမ္မော်၊ အစိမ်း၊ အပြာ စသော Pastel Highlights များဖြင့် မျက်စိရှင်းလင်းစွာ ခွဲခြားသတ်မှတ်ပေးပါသည်။</p>
+            </div>
+        </div>
+
+        <!-- Visual Table Mockup matching the actual Excel output -->
+        <div class="overflow-x-auto rounded-lg border border-[#30363d] bg-[#0b0f14] p-3">
+            <p class="text-xs font-mono text-[#8b949e] mb-2">📋 Excel Output Preview (အမှန်တကယ် ထွက်ရှိသော ဇယားပုံစံ):</p>
+            <table class="w-full text-xs text-center border-collapse">
+                <thead>
+                    <tr class="bg-[#21262d] text-[#f0f6fc] font-bold">
+                        <th class="p-2 border border-[#484f58]">No.</th>
+                        <th class="p-2 border border-[#484f58]">File Name</th>
+                        <th class="p-2 border border-[#484f58]">適合プランNo.</th>
+                        <th class="p-2 border border-[#484f58]">合計 分岐本数(本)</th>
+                        <th class="p-2 border border-[#484f58] bg-[#30363d] text-[#58a6ff]">ファイル合計</th>
+                    </tr>
+                </thead>
+                <tbody class="text-[#c9d1d9] font-mono">
+                    <!-- HZ6H377 Group -->
+                    <tr>
+                        <td class="p-2 border border-[#30363d]">1</td>
+                        <td class="p-2 border border-[#30363d] text-black font-semibold" style="background-color: #FFFF00;">HZ6H377.pdf</td>
+                        <td class="p-2 border border-[#30363d] text-left pl-3">HDK</td>
+                        <td class="p-2 border border-[#30363d] text-right pr-3">71</td>
+                        <td rowspan="5" class="p-2 border border-[#30363d] font-bold text-base text-[#f0f6fc] align-middle bg-[#161b22]">349</td>
+                    </tr>
+                    <tr>
+                        <td class="p-2 border border-[#30363d]">2</td>
+                        <td class="p-2 border border-[#30363d] text-black font-semibold" style="background-color: #FFFF00;">HZ6H377.pdf</td>
+                        <td class="p-2 border border-[#30363d] text-left pl-3">HEK</td>
+                        <td class="p-2 border border-[#30363d] text-right pr-3">75</td>
+                    </tr>
+                    <tr>
+                        <td class="p-2 border border-[#30363d]">3</td>
+                        <td class="p-2 border border-[#30363d] text-black font-semibold" style="background-color: #FFFF00;">HZ6H377.pdf</td>
+                        <td class="p-2 border border-[#30363d] text-left pl-3">HHK</td>
+                        <td class="p-2 border border-[#30363d] text-right pr-3">69</td>
+                    </tr>
+                    <tr>
+                        <td class="p-2 border border-[#30363d]">4</td>
+                        <td class="p-2 border border-[#30363d] text-black font-semibold" style="background-color: #FFFF00;">HZ6H377.pdf</td>
+                        <td class="p-2 border border-[#30363d] text-left pl-3">HHKメニュー</td>
+                        <td class="p-2 border border-[#30363d] text-right pr-3">65</td>
+                    </tr>
+                    <tr>
+                        <td class="p-2 border border-[#30363d]">5</td>
+                        <td class="p-2 border border-[#30363d] text-black font-semibold" style="background-color: #FFFF00;">HZ6H377.pdf</td>
+                        <td class="p-2 border border-[#30363d] text-left pl-3">HPK</td>
+                        <td class="p-2 border border-[#30363d] text-right pr-3">69</td>
+                    </tr>
+                    <!-- HZ6H435 Group -->
+                    <tr>
+                        <td class="p-2 border border-[#30363d]">6</td>
+                        <td class="p-2 border border-[#30363d] text-black font-semibold" style="background-color: #FFC000;">HZ6H435.pdf</td>
+                        <td class="p-2 border border-[#30363d] text-left pl-3">A</td>
+                        <td class="p-2 border border-[#30363d] text-right pr-3">63</td>
+                        <td rowspan="3" class="p-2 border border-[#30363d] font-bold text-base text-[#f0f6fc] align-middle bg-[#161b22]">175</td>
+                    </tr>
+                    <tr>
+                        <td class="p-2 border border-[#30363d]">7</td>
+                        <td class="p-2 border border-[#30363d] text-black font-semibold" style="background-color: #FFC000;">HZ6H435.pdf</td>
+                        <td class="p-2 border border-[#30363d] text-left pl-3">B</td>
+                        <td class="p-2 border border-[#30363d] text-right pr-3">56</td>
+                    </tr>
+                    <tr>
+                        <td class="p-2 border border-[#30363d]">8</td>
+                        <td class="p-2 border border-[#30363d] text-black font-semibold" style="background-color: #FFC000;">HZ6H435.pdf</td>
+                        <td class="p-2 border border-[#30363d] text-left pl-3">C</td>
+                        <td class="p-2 border border-[#30363d] text-right pr-3">56</td>
+                    </tr>
+                    <!-- HZ6H491 Group -->
+                    <tr>
+                        <td class="p-2 border border-[#30363d]">9</td>
+                        <td class="p-2 border border-[#30363d] text-black font-semibold" style="background-color: #92D050;">HZ6H491.pdf</td>
+                        <td class="p-2 border border-[#30363d] text-left pl-3">A・A’</td>
+                        <td class="p-2 border border-[#30363d] text-right pr-3">26</td>
+                        <td rowspan="3" class="p-2 border border-[#30363d] font-bold text-base text-[#f0f6fc] align-middle bg-[#161b22]">88</td>
+                    </tr>
+                    <tr>
+                        <td class="p-2 border border-[#30363d]">10</td>
+                        <td class="p-2 border border-[#30363d] text-black font-semibold" style="background-color: #92D050;">HZ6H491.pdf</td>
+                        <td class="p-2 border border-[#30363d] text-left pl-3">B・B’</td>
+                        <td class="p-2 border border-[#30363d] text-right pr-3">26</td>
+                    </tr>
+                    <tr>
+                        <td class="p-2 border border-[#30363d]">11</td>
+                        <td class="p-2 border border-[#30363d] text-black font-semibold" style="background-color: #92D050;">HZ6H491.pdf</td>
+                        <td class="p-2 border border-[#30363d] text-left pl-3">C</td>
+                        <td class="p-2 border border-[#30363d] text-right pr-3">36</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Interactive Setup Readiness Checklist -->
+    <section class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 mb-8 shadow-lg">
+        <h2 class="text-xl font-bold text-[#f0f6fc] mb-2 flex items-center justify-between border-b border-[#30363d] pb-3">
+            <span class="flex items-center gap-2"><span>📋</span> 3. မဖြစ်မနေ လိုအပ်ချက်များ စစ်ဆေးခြင်း (Prerequisites Checklist)</span>
+            <span id="checklist-counter" class="text-xs bg-[#21262d] text-[#58a6ff] px-3 py-1 rounded-full border border-[#30363d]">0 of 3 Ready</span>
+        </h2>
+        <p class="text-xs text-[#8b949e] mb-4">
+            User PC ပေါ်တွင် App Setup မလုပ်မီ အောက်ပါ အချက်အလက်များ ပြည့်စုံမှု ရှိ/မရှိ စစ်ဆေးပြီး အမှန်ခြစ်ပါ။
+        </p>
+
+        <!-- Progress Bar -->
+        <div class="w-full bg-[#21262d] rounded-full h-2.5 mb-6 overflow-hidden">
+            <div id="checklist-progress" class="bg-[#3fb950] h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+
+        <div class="space-y-3 text-sm">
+            <label class="flex items-start gap-3 p-3 bg-[#0d1117] border border-[#30363d] rounded-lg cursor-pointer hover:border-[#58a6ff] transition-colors">
+                <input type="checkbox" onchange="updateChecklist()" class="check-item mt-1 w-4 h-4 accent-[#3fb950] rounded cursor-pointer">
+                <div>
+                    <span class="font-semibold text-[#f0f6fc]">FujiFilm DocuWorks Viewer Light တပ်ဆင်ထားခြင်း:</span>
+                    <p class="text-xs text-[#8b949e] mt-0.5">
+                        <code class="inline">dwvlt.exe</code> ရှိရပါမည်။ (တည်နေရာ: <code class="inline">C:\Program Files (x86)\FUJIFILM\DocuWorks\bin\dwvlt.exe</code>)
+                    </p>
+                </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-3 bg-[#0d1117] border border-[#30363d] rounded-lg cursor-pointer hover:border-[#58a6ff] transition-colors">
+                <input type="checkbox" onchange="updateChecklist()" class="check-item mt-1 w-4 h-4 accent-[#3fb950] rounded cursor-pointer">
+                <div>
+                    <span class="font-semibold text-[#f0f6fc]">Bullzip PDF Printer တပ်ဆင်ထားခြင်း:</span>
+                    <p class="text-xs text-[#8b949e] mt-0.5">
+                        Free PDF Virtual Printer အဖြစ် Windows ထဲတွင် ထည့်သွင်းထားရပါမည်။
+                    </p>
+                </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-3 bg-[#0d1117] border border-[#30363d] rounded-lg cursor-pointer hover:border-[#58a6ff] transition-colors">
+                <input type="checkbox" onchange="updateChecklist()" class="check-item mt-1 w-4 h-4 accent-[#3fb950] rounded cursor-pointer">
+                <div>
+                    <span class="font-semibold text-[#f0f6fc]">Python 3.10+ တပ်ဆင်ထားခြင်း:</span>
+                    <p class="text-xs text-[#8b949e] mt-0.5">
+                        Python Install လုပ်စဉ် <code class="inline">"Add python.exe to PATH"</code> ကို အမှန်ခြစ်ခဲ့ရပါမည်။
+                    </p>
+                </div>
+            </label>
+        </div>
+    </section>
+
+    <!-- Step-by-Step Installation -->
+    <section class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 mb-8 shadow-lg">
+        <h2 class="text-xl font-bold text-[#f0f6fc] mb-4 flex items-center gap-2 border-b border-[#30363d] pb-3">
+            <span>🚀</span> 4. အဆင့်ဆင့် တပ်ဆင်နည်း (Step-by-Step Installation)
+        </h2>
+
+        <!-- Step 4.1 -->
+        <div class="mb-6">
+            <h3 class="text-base font-semibold text-[#58a6ff] mb-2">အဆင့် (၄.၁) - Python Dependencies သွင်းယူခြင်း</h3>
+            <p class="text-xs text-[#8b949e] mb-2">
+                Windows Search မှ <strong>Command Prompt (CMD)</strong> ကို ဖွင့်ပြီး အောက်ပါ command ကို တစ်ကြောင်းတည်း run ပေးပါ-
+            </p>
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Command Prompt</span>
+                    <button class="btn-copy" onclick="copySnippet(this)">Copy</button>
+                </div>
+                <pre>pip install streamlit pdfplumber pandas openpyxl pywin32</pre>
+            </div>
+        </div>
+
+                <!-- Step 4.2 CRITICAL BULLZIP SETTINGS -->
+        <div class="mb-6">
+            <h3 class="text-base font-semibold text-[#58a6ff] mb-2">
+                အဆင့် (၄.၂) - Bullzip PDF Printer Options ချိန်ညှိခြင်း <span class="text-[#3fb950] font-normal text-xs">(App မှ အလိုအလျောက် Silent Print ချိန်ညှိပေးထားပါသည်)</span>
+            </h3>
+
+            <div class="callout callout-warn my-3">
+                <h4 class="text-sm font-bold text-[#d29922] mb-1">💡 Bullzip Silent Print အကြောင်း သိကောင်းစရာ:</h4>
+                <p class="text-xs text-[#c9d1d9]">
+                    နောက်ဆုံး Update ပြုလုပ်ထားသော <code class="inline">app.py</code> သည် ဖိုင်တစ်ခုချင်းစီ print သည့်အခါတိုင်း <code class="inline">runonce.ini</code> နှင့် <code class="inline">settings.ini</code> ကို <code class="inline">showpdf=no</code> ဖြစ်အောင် အလိုအလျောက် ချိန်ညှိပေးပါသည်။ သို့သော် Client စက်ပေါ်တွင် ပထမဆုံးအကြိမ် ထည့်သွင်းချိန်တွင် အောက်ပါ အချက်များကို စစ်ဆေးပေးထားပါက ပိုမိုစိတ်ချရပါသည်-
+                </p>
+            </div>
+
+            <ol class="list-decimal pl-5 space-y-2 text-xs text-[#c9d1d9]">
+                <li>
+                    Windows Start Menu မှ <strong>Bullzip PDF Printer</strong> (Options) ကို ဖွင့်ပါ။
+                </li>
+                <li>
+                    <strong>Document Tab (အရေးကြီးဆုံး အချက်):</strong>
+                    <ul class="list-disc pl-5 mt-1 text-[#8b949e]">
+                        <li>
+                            View Document after conversion: <strong>Never</strong> (ဤအချက်ကို Never ထားခြင်းဖြင့် <em>"Do you want to open the document?"</em> popup တက်လာပြီး Process ရပ်တန့်သွားခြင်းမှ လုံးဝ ကင်းဝေးစေပါသည်)
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Dialogs Tab:</strong>
+                    <ul class="list-disc pl-5 mt-1 text-[#8b949e]">
+                        <li>Save As dialog: <strong>Never</strong></li>
+                        <li>Settings dialog: <strong>Never</strong></li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>General Tab:</strong>
+                    <ul class="list-disc pl-5 mt-1 text-[#8b949e]">
+                        <li><strong>Confirm Overwrite:</strong> အမှန်ခြစ် ပေးပါ။</li>
+                        <li><strong>Confirm folder creation:</strong> အမှန်ခြစ် ပေးပါ။</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Default Printer:</strong> Windows Printers & Scanners ထဲတွင် <strong>Bullzip PDF Printer</strong> ကို Default Printer အဖြစ် ထားရှိပေးပါ။
+                </li>
+                <li>အောက်ခြေရှိ <strong>Apply</strong> နှင့် <strong>OK</strong> ကို နှိပ်ပြီး ပိတ်ပါ။</li>
+            </ol>
+        </div>
+        <!-- Step 4.3 Daily Operations Guide -->
+        <div class="mb-2">
+            <h3 class="text-base font-semibold text-[#58a6ff] mb-2">
+                အဆင့် (၄.၃) - နေ့စဉ် အသုံးပြုနည်း လမ်းညွှန် (How to Use)
+            </h3>
+            <div class="bg-[#0d1117] border border-[#30363d] rounded-lg p-4 space-y-3 text-xs text-[#c9d1d9]">
+                <div class="flex items-start gap-3">
+                    <span class="bg-[#1f6feb] text-white font-bold px-2 py-0.5 rounded text-xs">Step 1</span>
+                    <div>
+                        <strong class="text-[#f0f6fc]">App ကို စတင်ဖွင့်လှစ်ခြင်း:</strong>
+                        <p class="text-[#8b949e] mt-0.5">Desktop ပေါ်ရှိ <code class="inline">Run_App.bat</code> (သို့မဟုတ် shortcut) ကို Double-click နှိပ်ပါ။ Browser တွင် Web App ပွင့်လာပါမည်။</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="bg-[#1f6feb] text-white font-bold px-2 py-0.5 rounded text-xs">Step 2</span>
+                    <div>
+                        <strong class="text-[#f0f6fc]">⚡ Full Automation Tab ကို ရွေးချယ်၍ ဖိုင်တင်ခြင်း:</strong>
+                        <p class="text-[#8b949e] mt-0.5">ပထမဆုံး Tab ဖြစ်သော <strong class="text-[#58a6ff]">"⚡ Full Automation (.xdw → PDF & Excel)"</strong> ကို ရွေးချယ်ပြီး သင်၏ <code class="inline">.xdw</code> ဖိုင်များကို Drag & Drop သို့မဟုတ် Browse ဖြင့် တစ်ပြိုင်နက် ရွေးတင်ပါ။</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="bg-[#1f6feb] text-white font-bold px-2 py-0.5 rounded text-xs">Step 3</span>
+                    <div>
+                        <strong class="text-[#f0f6fc]">ခလုတ်တစ်ချက် နှိပ်၍ အပြီးသတ်ခြင်း:</strong>
+                        <p class="text-[#8b949e] mt-0.5"><code class="inline text-[#3fb950] font-bold">🚀 Start Full Automation</code> ခလုတ်ကို နှိပ်လိုက်သည်နှင့် စနစ်မှ PDF ပြောင်းလဲခြင်းနှင့် Excel ထုတ်ယူခြင်းကို တစ်ဆက်တည်း အလိုအလျောက် တွက်ချက်ပေးမည် ဖြစ်ပါသည်။</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="bg-[#238636] text-white font-bold px-2 py-0.5 rounded text-xs">Done</span>
+                    <div>
+                        <strong class="text-[#f0f6fc]">ရလဒ်များကို ရယူခြင်း:</strong>
+                        <p class="text-[#8b949e] mt-0.5">ဖန်သားပြင်ပေါ်တွင် တွက်ချက်ပြီးသား ဇယားကို တိုက်ရိုက် ကြည့်ရှုနိုင်သည့်အပြင် <strong class="text-[#3fb950]">📥 Download Consolidated Excel (.xlsx)</strong> နှင့် <strong class="text-[#58a6ff]">📦 Download All Converted PDFs (.zip)</strong> ခလုတ်များဖြင့် ချက်ချင်း ဒေါင်းလုဒ် ရယူနိုင်ပါသည်။ (ဖိုင်များကိုလည်း <code class="inline">Report/</code> နှင့် <code class="inline">PDF_Output/</code> ဖိုဒါများထဲတွင် အလိုအလျောက် သိမ်းဆည်းပေးထားပြီး ဖြစ်ပါသည်)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Folder Structure -->
+    <section class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 mb-8 shadow-lg">
+        <h2 class="text-xl font-bold text-[#f0f6fc] mb-4 flex items-center gap-2 border-b border-[#30363d] pb-3">
+            <span>📁</span> 5. သတ်မှတ်ထားသော ဖိုဒါဖွဲ့စည်းပုံ (Folder Structure)
+        </h2>
+        <p class="text-xs text-[#8b949e] mb-3">
+            App တည်ရှိရာ Folder (ဥပမာ- <code class="inline">C:\Users\...\Yazaki\</code>) ထဲတွင် အောက်ပါအတိုင်း အလိုအလျောက် ဖွဲ့စည်းတည်ဆောက်ထားပါမည်-
+        </p>
+        <div class="bg-[#0b0f14] border border-[#30363d] p-4 rounded-lg font-mono text-xs text-[#58a6ff] overflow-x-auto">
+Yazaki/
+│
+├── app.py                  (Streamlit Multi-Stage Web App Code)
+├── Run_App.bat             (One-Click Auto-Requirements & Startup Script)
+├── yazaki_setup_manual.html(Setup, Operations & Troubleshooting Manual)
+├── PDF_Output/             (Convert ပြီးစီးသွားသော PDF ဖိုင်များ အလိုအလျောက် သိမ်းဆည်းသည့်နေရာ)
+├── converted_pdfs/         (Conversion အတွက် ယာယီအသုံးပြုသော နေရာ)
+└── Report/                 (အလိုအလျောက် ထွက်လာသော Consolidated Excel Reports များ)
+        </div>
+    </section>
+
+    <!-- Full Updated app.py Code -->
+    <section class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 mb-8 shadow-lg">
+        <h2 class="text-xl font-bold text-[#f0f6fc] mb-4 flex items-center gap-2 border-b border-[#30363d] pb-3">
+            <span>📝</span> 6. အပြည့်အစုံ ပြင်ဆင်ထားသော Source Code (<code class="inline">app.py</code>)
+        </h2>
+        <p class="text-xs text-[#8b949e] mb-3">
+            Folder ထဲတွင် <code class="inline">app.py</code> အမည်ဖြင့် ဖိုင်ဆောက်ပြီး အောက်ပါ source code အပြည့်အစုံ (1-Click Full Automation ပါဝင်ပြီးသား Latest Version) ကို ကူးယူထည့်သွင်းပါ-
+        </p>
+
+        <div class="code-block">
+            <div class="code-header">
+                <span>app.py (Full Automation Enhanced Version)</span>
+                <button class="btn-copy" onclick="copySnippet(this)">Copy Full Source Code</button>
+            </div>
+<pre><code>import streamlit as st
+import pdfplumber
+import pandas as pd
+import unicodedata
+import io
+import os
+import subprocess
+import time
+import zipfile
+import shutil
+from pathlib import Path
+from datetime import datetime
+from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
+from openpyxl.utils import get_column_letter
+
+st.set_page_config(
+    page_title=&quot;Yazaki DocuWorks &amp; PDF Processor&quot;,
+    page_icon=&quot;📑&quot;,
+    layout=&quot;wide&quot;
+)
+
+st.title(&quot;📑 Yazaki Multi-Stage Processing Portal&quot;)
+
+# 1. Dynamic base directory resolution (based on app.py location)
+APP_DIR = Path(__file__).resolve().parent
+
+CONVERT_DIR = os.path.join(APP_DIR, &quot;converted_pdfs&quot;)
+PDF_OUTPUT_DIR = os.path.join(APP_DIR, &quot;PDF_Output&quot;)
+REPORT_DIR = os.path.join(APP_DIR, &quot;Report&quot;)
+
+os.makedirs(CONVERT_DIR, exist_ok=True)
+os.makedirs(PDF_OUTPUT_DIR, exist_ok=True)
+os.makedirs(REPORT_DIR, exist_ok=True)
+
+# 2. Path detection for DocuWorks Viewer Light
+DWVLT_PATHS = [
+    r&quot;C:\Program Files (x86)\FUJIFILM\DocuWorks\bin\dwvlt.exe&quot;,
+    r&quot;C:\Program Files\FUJIFILM\DocuWorks\bin\dwvlt.exe&quot;,
+    r&quot;C:\Program Files (x86)\Fuji Xerox\DocuWorks\bin\dwvlt.exe&quot;
+]
+
+DWVLT_EXE = None
+for p in DWVLT_PATHS:
+    if os.path.isfile(p):
+        DWVLT_EXE = p
+        break
+
+# 3. Helper to configure Bullzip silent printing without UI prompts
+def configure_bullzip_silent(target_pdf_path):
+    &quot;&quot;&quot;
+    Writes Bullzip runonce.ini configuration and patches settings.ini
+    so it silently saves directly to target_pdf_path without any popups,
+    progress dialogs, or &#x27;Do you want to open the document?&#x27; prompts.
+    &quot;&quot;&quot;
+    appdata = os.environ.get(&quot;APPDATA&quot;, &quot;&quot;)
+    pdf_writer_root = os.path.join(appdata, &quot;PDF Writer&quot;)
+
+    config_content = (
+        &quot;[PDF Printer]\n&quot;
+        f&quot;Output={os.path.abspath(target_pdf_path)}\n&quot;
+        &quot;ShowSettings=never\n&quot;
+        &quot;ShowSaveAS=never\n&quot;
+        &quot;ShowProgress=no\n&quot;
+        &quot;ShowProgressFinished=no\n&quot;
+        &quot;ShowPDF=no\n&quot;
+        &quot;ConfirmOverwrite=yes\n&quot;
+    )
+
+    written = False
+    if os.path.isdir(pdf_writer_root):
+        for item in os.listdir(pdf_writer_root):
+            sub_dir = os.path.join(pdf_writer_root, item)
+            if os.path.isdir(sub_dir):
+                # 1. Write runonce.ini for the current print job
+                runonce_file = os.path.join(sub_dir, &quot;runonce.ini&quot;)
+                with open(runonce_file, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:
+                    f.write(config_content)
+                written = True
+
+                # 2. Patch settings.ini to prevent post-print &#x27;Do you want to open the document?&#x27; prompt
+                settings_file = os.path.join(sub_dir, &quot;settings.ini&quot;)
+                if os.path.isfile(settings_file):
+                    try:
+                        with open(settings_file, &quot;r&quot;, encoding=&quot;utf-8&quot;, errors=&quot;ignore&quot;) as sf:
+                            s_data = sf.read()
+                        updated = False
+                        for old_line, new_line in [
+                            (&quot;showpdf=ask&quot;, &quot;showpdf=no&quot;),
+                            (&quot;showpdf=yes&quot;, &quot;showpdf=no&quot;),
+                            (&quot;showprogress=yes&quot;, &quot;showprogress=no&quot;),
+                            (&quot;showprogressfinished=yes&quot;, &quot;showprogressfinished=no&quot;),
+                        ]:
+                            if old_line in s_data:
+                                s_data = s_data.replace(old_line, new_line)
+                                updated = True
+                        if updated:
+                            with open(settings_file, &quot;w&quot;, encoding=&quot;utf-8&quot;) as sf:
+                                sf.write(s_data)
+                    except Exception:
+                        pass
+
+    # Fallback to default directory name if none existed yet
+    if not written:
+        default_dir = os.path.join(pdf_writer_root, &quot;Bullzip PDF Printer&quot;)
+        os.makedirs(default_dir, exist_ok=True)
+        with open(os.path.join(default_dir, &quot;runonce.ini&quot;), &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:
+            f.write(config_content)
+
+def convert_single_xdw(file_name, file_bytes):
+    &quot;&quot;&quot;
+    Converts a single .xdw file into PDF using DocuWorks Viewer Light and Bullzip PDF Printer.
+    Returns target_pdf path if successful, None if timed out/failed.
+    &quot;&quot;&quot;
+    if not DWVLT_EXE:
+        return None
+
+    base_name = os.path.splitext(file_name)[0]
+    temp_xdw = os.path.join(CONVERT_DIR, file_name)
+    target_pdf = os.path.join(PDF_OUTPUT_DIR, f&quot;{base_name}.pdf&quot;)
+
+    # 1. Clear previous PDF if exists
+    if os.path.exists(target_pdf):
+        try:
+            os.remove(target_pdf)
+        except Exception:
+            pass
+
+    # 2. Save .xdw locally
+    with open(temp_xdw, &quot;wb&quot;) as f:
+        f.write(file_bytes)
+
+    # 3. Instruct Bullzip to save directly to target_pdf silently
+    configure_bullzip_silent(target_pdf)
+
+    # 4. Invoke silent print via dwvlt.exe
+    cmd = f&#x27;start /wait &quot;&quot; &quot;{DWVLT_EXE}&quot; /p &quot;{temp_xdw}&quot;&#x27;
+    subprocess.run(cmd, shell=True)
+
+    # 5. Wait for target PDF creation and size stability
+    timeout = 35
+    start_t = time.time()
+    file_done = False
+    last_size = -1
+    stable_count = 0
+
+    while time.time() - start_t &lt; timeout:
+        if os.path.exists(target_pdf) and os.path.getsize(target_pdf) &gt; 0:
+            try:
+                current_size = os.path.getsize(target_pdf)
+                if current_size == last_size:
+                    stable_count += 1
+                else:
+                    stable_count = 0
+                    last_size = current_size
+
+                if stable_count &gt;= 2:
+                    with open(target_pdf, &quot;rb&quot;) as test_f:
+                        if len(test_f.read(1024)) &gt; 0:
+                            file_done = True
+                            break
+            except (PermissionError, IOError):
+                stable_count = 0
+        time.sleep(1)
+
+    # Cleanup source temp .xdw
+    try:
+        os.remove(temp_xdw)
+    except Exception:
+        pass
+
+    return target_pdf if file_done else None
+
+# ----------------- Helper Functions for PDF Parsing -----------------
+def extract_target_tables(pdf_bytes, keyword=&quot;適合&quot;):
+    matched_pages = []
+    with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
+        for idx, page in enumerate(pdf.pages, start=1):
+            text = page.extract_text() or &quot;&quot;
+            norm_text = unicodedata.normalize(&#x27;NFKC&#x27;, text)
+            
+            if keyword in text or keyword in norm_text or &quot;矢崎ユニット明細書&quot; in text:
+                tables = page.extract_tables()
+                if tables:
+                    matched_pages.append((idx, tables))
+                    
+            if &#x27;付 図 １&#x27; in text or &#x27;付図1&#x27; in norm_text:
+                break
+
+    matched_pages.sort(key=lambda x: x[0])
+    all_tables = []
+    for _, tbls in matched_pages:
+        all_tables.extend(tbls)
+    return all_tables
+
+def parse_table_to_df(page_tables):
+    if not page_tables:
+        return pd.DataFrame()
+
+    all_data_rows = []
+    for tbl in page_tables:
+        normalized_table = []
+        for row in tbl:
+            if not row:
+                continue
+            norm_row = [
+                unicodedata.normalize(&#x27;NFKC&#x27;, str(c)).strip() if c is not None else None
+                for c in row
+            ]
+            normalized_table.append(norm_row)
+
+        if not normalized_table:
+            continue
+
+        df_raw = pd.DataFrame(normalized_table)
+        header_row_idx, branch_col_idx = None, None
+
+        for r_idx, row in df_raw.iterrows():
+            for c_idx, cell_val in enumerate(row):
+                if cell_val and &quot;分岐本数&quot; in str(cell_val):
+                    header_row_idx = r_idx
+                    branch_col_idx = c_idx
+                    break
+            if header_row_idx is not None:
+                break
+
+        start_r = header_row_idx + 1 if header_row_idx is not None else 0
+        if branch_col_idx is None:
+            branch_col_idx = 3
+
+        plan_col_idx = 0
+
+        for r_idx in range(start_r, len(df_raw)):
+            row = df_raw.iloc[r_idx]
+            row_str = &quot; &quot;.join([str(x) for x in row if x])
+
+            if &quot;承 認&quot; in row_str or &quot;承認&quot; in row_str or &quot;矢崎エナジーシステム&quot; in row_str:
+                break
+            if &quot;分岐本数&quot; in row_str or &quot;プランNo&quot; in row_str:
+                continue
+
+            plan_val = row[plan_col_idx] if len(row) &gt; plan_col_idx else None
+            count_val = row[branch_col_idx] if branch_col_idx &lt; len(row) else None
+
+            if count_val and str(count_val).isdigit():
+                all_data_rows.append({
+                    &quot;適合プランNo.&quot;: plan_val,
+                    &quot;分岐本数&quot;: int(count_val)
+                })
+
+    if not all_data_rows:
+        return pd.DataFrame()
+
+    df_clean = pd.DataFrame(all_data_rows)
+    # Convert empty or whitespace-only strings to NA so ffill propagates merged cells accurately
+    df_clean[&quot;適合プランNo.&quot;] = df_clean[&quot;適合プランNo.&quot;].replace(r&quot;^\s*$&quot;, pd.NA, regex=True).ffill()
+    summary_df = df_clean.groupby(&quot;適合プランNo.&quot;, as_index=False, sort=False)[&quot;分岐本数&quot;].sum()
+    summary_df.rename(columns={&quot;分岐本数&quot;: &quot;合計 分岐本数(本)&quot;}, inplace=True)
+    return summary_df
+
+def extract_single_pdf_to_df(pdf_bytes, file_name, row_counter_start=1):
+    &quot;&quot;&quot;
+    Extracts target summary table from raw PDF bytes and appends file name and sequential numbering.
+    &quot;&quot;&quot;
+    tables = extract_target_tables(pdf_bytes)
+    df_summary = parse_table_to_df(tables)
+    if not df_summary.empty:
+        df_summary.insert(0, &quot;File Name&quot;, file_name)
+        df_summary.insert(0, &quot;No.&quot;, range(row_counter_start, row_counter_start + len(df_summary)))
+        return df_summary
+    return pd.DataFrame()
+
+def build_excel_report(master_rows):
+    &quot;&quot;&quot;
+    Consolidates parsed DataFrames into an Excel file with formatted group subtotals,
+    vertical cell merges for each file group, and pastel styling matching specifications.
+    Returns (final_df, excel_bytes, excel_name, excel_path).
+    &quot;&quot;&quot;
+    if not master_rows:
+        return None, None, None, None
+
+    final_df = pd.concat(master_rows, ignore_index=True)
+    # Add file-level sum column for the Streamlit preview table
+    if &quot;合計 分岐本数(本)&quot; in final_df.columns and &quot;File Name&quot; in final_df.columns:
+        final_df[&quot;ファイル合計&quot;] = final_df.groupby(&quot;File Name&quot;)[&quot;合計 分岐本数(本)&quot;].transform(&quot;sum&quot;)
+
+    timestamp = datetime.now().strftime(&quot;%Y%m%d_%H%M%S&quot;)
+    excel_name = f&quot;マンション納品明細書_{timestamp}.xlsx&quot;
+    excel_path = os.path.join(REPORT_DIR, excel_name)
+
+    # 10 harmonious highlight colors matching the reference screenshot and cycling
+    PALETTE_COLORS = [
+        &quot;FFFF00&quot;,  # Yellow (HZ6H377)
+        &quot;FFC000&quot;,  # Orange (HZ6H435)
+        &quot;92D050&quot;,  # Light Green (HZ6H491)
+        &quot;00B050&quot;,  # Medium Green (HZ6I016)
+        &quot;00B0F0&quot;,  # Sky Blue (HZ6I026)
+        &quot;B2A1C7&quot;,  # Soft Purple
+        &quot;F4B084&quot;,  # Soft Coral
+        &quot;A9D08E&quot;,  # Sage Green
+        &quot;9BC2E6&quot;,  # Soft Blue
+        &quot;FFD966&quot;,  # Goldenrod
+    ]
+
+    thin_border = Border(
+        left=Side(style=&#x27;thin&#x27;, color=&#x27;000000&#x27;),
+        right=Side(style=&#x27;thin&#x27;, color=&#x27;000000&#x27;),
+        top=Side(style=&#x27;thin&#x27;, color=&#x27;000000&#x27;),
+        bottom=Side(style=&#x27;thin&#x27;, color=&#x27;000000&#x27;)
+    )
+
+    excel_buffer = io.BytesIO()
+    with pd.ExcelWriter(excel_buffer, engine=&#x27;openpyxl&#x27;) as writer:
+        final_df.to_excel(writer, index=False, sheet_name=&quot;Summary&quot;)
+        ws = writer.sheets[&quot;Summary&quot;]
+
+        total_rows = len(final_df)
+        total_cols = len(final_df.columns)
+
+        # Style Header Row (Row 1)
+        for col_idx in range(1, total_cols + 1):
+            cell = ws.cell(row=1, column=col_idx)
+            cell.font = Font(name=&quot;MS Pゴシック&quot;, size=11, bold=True)
+            cell.alignment = Alignment(horizontal=&quot;center&quot;, vertical=&quot;center&quot;)
+            cell.border = thin_border
+
+        # Identify contiguous file groups
+        file_groups = []
+        current_file = None
+        start_row = 2
+
+        for r_idx in range(2, total_rows + 2):
+            f_val = ws.cell(row=r_idx, column=2).value
+            if current_file is None:
+                current_file = f_val
+                start_row = r_idx
+            elif f_val != current_file:
+                file_groups.append((current_file, start_row, r_idx - 1))
+                current_file = f_val
+                start_row = r_idx
+        if current_file is not None:
+            file_groups.append((current_file, start_row, total_rows + 1))
+
+        # Format rows and merged sums per file group
+        for group_idx, (f_name, s_row, e_row) in enumerate(file_groups):
+            fill_hex = PALETTE_COLORS[group_idx % len(PALETTE_COLORS)]
+            file_fill = PatternFill(start_color=fill_hex, end_color=fill_hex, fill_type=&quot;solid&quot;)
+
+            for r in range(s_row, e_row + 1):
+                # No. (Col 1)
+                c_no = ws.cell(row=r, column=1)
+                c_no.font = Font(name=&quot;MS Pゴシック&quot;, size=11)
+                c_no.alignment = Alignment(horizontal=&quot;center&quot;, vertical=&quot;center&quot;)
+                c_no.border = thin_border
+
+                # File Name (Col 2)
+                c_fn = ws.cell(row=r, column=2)
+                c_fn.font = Font(name=&quot;MS Pゴシック&quot;, size=11)
+                c_fn.alignment = Alignment(horizontal=&quot;left&quot;, vertical=&quot;center&quot;)
+                c_fn.fill = file_fill
+                c_fn.border = thin_border
+
+                # 適合プランNo. (Col 3)
+                c_plan = ws.cell(row=r, column=3)
+                c_plan.font = Font(name=&quot;MS Pゴシック&quot;, size=11)
+                c_plan.alignment = Alignment(horizontal=&quot;left&quot;, vertical=&quot;center&quot;)
+                c_plan.border = thin_border
+
+                # 合計 分岐本数(本) (Col 4)
+                c_cnt = ws.cell(row=r, column=4)
+                c_cnt.font = Font(name=&quot;MS Pゴシック&quot;, size=11)
+                c_cnt.alignment = Alignment(horizontal=&quot;right&quot;, vertical=&quot;center&quot;)
+                c_cnt.border = thin_border
+
+                # ファイル合計 (Col 5) - ensure borders on every cell in block
+                c_e = ws.cell(row=r, column=5)
+                c_e.font = Font(name=&quot;MS Pゴシック&quot;, size=11, bold=True)
+                c_e.border = thin_border
+
+            # Clear subcells in column 5 so Excel merges cleanly
+            for r in range(s_row + 1, e_row + 1):
+                ws.cell(row=r, column=5, value=None)
+
+            # Set Excel SUM formula on the top cell of the group
+            top_e_cell = ws.cell(row=s_row, column=5)
+            top_e_cell.value = f&quot;=SUM(D{s_row}:D{e_row})&quot;
+
+            # Merge vertically if multiple rows
+            if s_row &lt; e_row:
+                ws.merge_cells(start_row=s_row, start_column=5, end_row=e_row, end_column=5)
+
+            top_e_cell.alignment = Alignment(horizontal=&quot;center&quot;, vertical=&quot;center&quot;)
+            top_e_cell.font = Font(name=&quot;MS Pゴシック&quot;, size=11, bold=True)
+
+        # Auto-adjust column widths with padding for Japanese characters
+        for col in ws.columns:
+            max_len = 0
+            col_letter = get_column_letter(col[0].column)
+            for cell in col:
+                val = str(cell.value or &quot;&quot;)
+                if not val.startswith(&quot;=&quot;):
+                    w = sum(2 if ord(c) &gt; 127 else 1 for c in val)
+                    if w &gt; max_len:
+                        max_len = w
+            ws.column_dimensions[col_letter].width = max(max_len + 4, 12)
+
+    excel_bytes = excel_buffer.getvalue()
+    try:
+        with open(excel_path, &quot;wb&quot;) as f:
+            f.write(excel_bytes)
+    except Exception:
+        pass
+
+    return final_df, excel_bytes, excel_name, excel_path
+
+def build_pdf_zip(pdf_paths):
+    &quot;&quot;&quot;
+    Packages a list of PDF file paths into a zip buffer.
+    &quot;&quot;&quot;
+    if not pdf_paths:
+        return None
+    zip_buffer = io.BytesIO()
+    with zipfile.ZipFile(zip_buffer, &quot;w&quot;) as zf:
+        for pdf_path in pdf_paths:
+            if os.path.exists(pdf_path):
+                zf.write(pdf_path, os.path.basename(pdf_path))
+    return zip_buffer.getvalue()
+
+# ----------------- UI Tabs Structure -----------------
+tab_auto, tab1, tab2 = st.tabs([
+    &quot;⚡ Full Automation (.xdw → PDF &amp; Excel)&quot;,
+    &quot;🖨️ Stage 1: Convert .xdw to PDF (Bulk)&quot;, 
+    &quot;📊 Stage 2: Extract PDF to Excel Report&quot;
+])
+
+# Initialize session state keys to ensure downloads and state persist across reruns
+# Full Automation State
+if &quot;auto_final_df&quot; not in st.session_state:
+    st.session_state[&quot;auto_final_df&quot;] = None
+if &quot;auto_excel_bytes&quot; not in st.session_state:
+    st.session_state[&quot;auto_excel_bytes&quot;] = None
+if &quot;auto_excel_name&quot; not in st.session_state:
+    st.session_state[&quot;auto_excel_name&quot;] = None
+if &quot;auto_excel_path&quot; not in st.session_state:
+    st.session_state[&quot;auto_excel_path&quot;] = None
+if &quot;auto_zip_bytes&quot; not in st.session_state:
+    st.session_state[&quot;auto_zip_bytes&quot;] = None
+if &quot;auto_pdf_count&quot; not in st.session_state:
+    st.session_state[&quot;auto_pdf_count&quot;] = 0
+if &quot;auto_extracted_count&quot; not in st.session_state:
+    st.session_state[&quot;auto_extracted_count&quot;] = 0
+
+# Stage 1 State
+if &quot;stage1_zip_bytes&quot; not in st.session_state:
+    st.session_state[&quot;stage1_zip_bytes&quot;] = None
+if &quot;stage1_converted_count&quot; not in st.session_state:
+    st.session_state[&quot;stage1_converted_count&quot;] = 0
+
+# Stage 2 State
+if &quot;stage2_final_df&quot; not in st.session_state:
+    st.session_state[&quot;stage2_final_df&quot;] = None
+if &quot;stage2_excel_bytes&quot; not in st.session_state:
+    st.session_state[&quot;stage2_excel_bytes&quot;] = None
+if &quot;stage2_excel_name&quot; not in st.session_state:
+    st.session_state[&quot;stage2_excel_name&quot;] = None
+if &quot;stage2_excel_path&quot; not in st.session_state:
+    st.session_state[&quot;stage2_excel_path&quot;] = None
+if &quot;stage2_count&quot; not in st.session_state:
+    st.session_state[&quot;stage2_count&quot;] = 0
+
+# ==================== FULL AUTOMATION: XDW TO PDF &amp; EXCEL ====================
+with tab_auto:
+    st.subheader(&quot;⚡ 1-Click End-to-End Automation (.xdw ➔ PDF ➔ Excel)&quot;)
+    st.caption(&quot;Upload `.xdw` files. The system converts them to PDF and extracts the tables directly into a consolidated Excel report in one click.&quot;)
+
+    if not DWVLT_EXE:
+        st.error(&quot;⚠️ DocuWorks Viewer Light (`dwvlt.exe`) was not detected on this PC.&quot;)
+    else:
+        uploaded_auto_xdw = st.file_uploader(
+            &quot;Upload Multiple .xdw Files for Full Automation&quot;, 
+            type=[&quot;xdw&quot;], 
+            accept_multiple_files=True,
+            key=&quot;auto_xdw_uploader&quot;
+        )
+
+        if uploaded_auto_xdw:
+            if st.button(&quot;🚀 Start Full Automation (.xdw ➔ Excel Report)&quot;, key=&quot;btn_start_full_auto&quot;, type=&quot;primary&quot;):
+                converted_pdf_list = []
+                total_files = len(uploaded_auto_xdw)
+                progress_bar = st.progress(0)
+                status_text = st.empty()
+
+                # Phase 1: Convert .xdw to PDF
+                for idx, file in enumerate(uploaded_auto_xdw):
+                    status_text.text(f&quot;Phase 1/2 - Converting ({idx+1}/{total_files}): {file.name} to PDF ...&quot;)
+                    file.seek(0)
+                    pdf_path = convert_single_xdw(file.name, file.read())
+                    if pdf_path:
+                        converted_pdf_list.append(pdf_path)
+                    else:
+                        st.warning(f&quot;⚠️ Conversion timed out for: {file.name}&quot;)
+                    progress_bar.progress((idx + 1) / (total_files * 2))
+
+                # Clean up DWVLT processes
+                subprocess.run([&quot;taskkill&quot;, &quot;/f&quot;, &quot;/im&quot;, &quot;DWVLT.exe&quot;], capture_output=True)
+
+                if not converted_pdf_list:
+                    st.error(&quot;No PDFs were produced. Please ensure Bullzip PDF Printer is installed and set as default printer.&quot;)
+                else:
+                    # Phase 2: Extract data from converted PDFs into Excel
+                    master_rows = []
+                    row_counter = 1
+                    for idx, pdf_path in enumerate(converted_pdf_list):
+                        file_name = os.path.basename(pdf_path)
+                        status_text.text(f&quot;Phase 2/2 - Extracting tables ({idx+1}/{len(converted_pdf_list)}): {file_name} ...&quot;)
+                        try:
+                            with open(pdf_path, &quot;rb&quot;) as pf:
+                                pdf_bytes = pf.read()
+                            df_summary = extract_single_pdf_to_df(pdf_bytes, file_name, row_counter_start=row_counter)
+                            if not df_summary.empty:
+                                row_counter += len(df_summary)
+                                master_rows.append(df_summary)
+                        except Exception as e:
+                            st.warning(f&quot;⚠️ Error parsing {file_name}: {e}&quot;)
+
+                        progress_bar.progress(0.5 + ((idx + 1) / (len(converted_pdf_list) * 2)))
+
+                    if master_rows:
+                        final_df, excel_bytes, excel_name, excel_path = build_excel_report(master_rows)
+                        zip_bytes = build_pdf_zip(converted_pdf_list)
+
+                        st.session_state[&quot;auto_final_df&quot;] = final_df
+                        st.session_state[&quot;auto_excel_bytes&quot;] = excel_bytes
+                        st.session_state[&quot;auto_excel_name&quot;] = excel_name
+                        st.session_state[&quot;auto_excel_path&quot;] = excel_path
+                        st.session_state[&quot;auto_zip_bytes&quot;] = zip_bytes
+                        st.session_state[&quot;auto_pdf_count&quot;] = len(converted_pdf_list)
+                        st.session_state[&quot;auto_extracted_count&quot;] = len(master_rows)
+                        status_text.text(&quot;🎉 Full Automation complete! Excel report and PDFs are ready.&quot;)
+                    else:
+                        st.session_state[&quot;auto_final_df&quot;] = None
+                        st.warning(&quot;PDFs were created, but no matching table rows with &#x27;適合&#x27; or &#x27;矢崎ユニット明細書&#x27; were detected.&quot;)
+
+        if st.session_state.get(&quot;auto_final_df&quot;) is not None:
+            st.success(
+                f&quot;✅ Automation completed successfully! Converted {st.session_state[&#x27;auto_pdf_count&#x27;]} file(s) and extracted tables from {st.session_state[&#x27;auto_extracted_count&#x27;]} document(s).&quot;
+            )
+
+            # Download buttons side-by-side
+            d_col1, d_col2 = st.columns(2)
+            with d_col1:
+                st.download_button(
+                    label=&quot;📥 Download Consolidated Excel (.xlsx)&quot;,
+                    data=st.session_state[&quot;auto_excel_bytes&quot;],
+                    file_name=st.session_state[&quot;auto_excel_name&quot;],
+                    mime=&quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot;,
+                    key=&quot;download_auto_excel&quot;,
+                    type=&quot;primary&quot;
+                )
+            with d_col2:
+                if st.session_state.get(&quot;auto_zip_bytes&quot;):
+                    st.download_button(
+                        label=&quot;📦 Download All Converted PDFs (.zip)&quot;,
+                        data=st.session_state[&quot;auto_zip_bytes&quot;],
+                        file_name=f&quot;Converted_PDFs_{datetime.now().strftime(&#x27;%Y%m%d_%H%M%S&#x27;)}.zip&quot;,
+                        mime=&quot;application/zip&quot;,
+                        key=&quot;download_auto_zip&quot;
+                    )
+
+            st.dataframe(st.session_state[&quot;auto_final_df&quot;], use_container_width=True)
+            st.info(f&quot;💾 Excel report saved locally to: `{st.session_state[&#x27;auto_excel_path&#x27;]}`&quot;)
+            st.info(f&quot;📁 PDF files saved locally to: `{PDF_OUTPUT_DIR}`&quot;)
+
+# ==================== STAGE 1: XDW TO PDF ====================
+with tab1:
+    st.subheader(&quot;Step 1: Multi .xdw Conversion to PDF (Standalone)&quot;)
+    st.caption(f&quot;Working Directory: `{APP_DIR}`&quot;)
+
+    if not DWVLT_EXE:
+        st.error(&quot;⚠️ DocuWorks Viewer Light (`dwvlt.exe`) was not detected on this PC.&quot;)
+    else:
+        uploaded_xdw_files = st.file_uploader(
+            &quot;Upload Multiple .xdw Files&quot;, 
+            type=[&quot;xdw&quot;], 
+            accept_multiple_files=True,
+            key=&quot;xdw_uploader&quot;
+        )
+
+        if uploaded_xdw_files:
+            if st.button(&quot;🚀 Start Bulk Conversion to PDF&quot;, key=&quot;btn_start_xdw_convert&quot;):
+                converted_pdf_list = []
+                progress_bar = st.progress(0)
+                status_text = st.empty()
+
+                for idx, file in enumerate(uploaded_xdw_files):
+                    status_text.text(f&quot;Converting ({idx+1}/{len(uploaded_xdw_files)}): {file.name} ...&quot;)
+                    file.seek(0)
+                    target_pdf = convert_single_xdw(file.name, file.read())
+
+                    if target_pdf:
+                        converted_pdf_list.append(target_pdf)
+                    else:
+                        st.warning(f&quot;⚠️ Conversion timed out for: {file.name}&quot;)
+
+                    progress_bar.progress((idx + 1) / len(uploaded_xdw_files))
+
+                # Force kill leftover DWVLT processes
+                subprocess.run([&quot;taskkill&quot;, &quot;/f&quot;, &quot;/im&quot;, &quot;DWVLT.exe&quot;], capture_output=True)
+
+                if converted_pdf_list:
+                    zip_bytes = build_pdf_zip(converted_pdf_list)
+                    st.session_state[&quot;stage1_zip_bytes&quot;] = zip_bytes
+                    st.session_state[&quot;stage1_converted_count&quot;] = len(converted_pdf_list)
+                    status_text.text(&quot;Conversion process finished!&quot;)
+                else:
+                    st.session_state[&quot;stage1_zip_bytes&quot;] = None
+                    st.error(&quot;No PDFs were produced. Please ensure Bullzip PDF Printer is installed and set as the default printer.&quot;)
+
+        if st.session_state.get(&quot;stage1_zip_bytes&quot;):
+            st.success(f&quot;Successfully converted {st.session_state[&#x27;stage1_converted_count&#x27;]} file(s) into `{PDF_OUTPUT_DIR}`!&quot;)
+            st.download_button(
+                label=&quot;📦 Download All Converted PDFs (.zip)&quot;,
+                data=st.session_state[&quot;stage1_zip_bytes&quot;],
+                file_name=f&quot;Converted_PDFs_{datetime.now().strftime(&#x27;%Y%m%d_%H%M%S&#x27;)}.zip&quot;,
+                mime=&quot;application/zip&quot;,
+                key=&quot;download_xdw_zip&quot;
+            )
+
+# ==================== STAGE 2: PDF TO EXCEL ====================
+with tab2:
+    st.subheader(&quot;Step 2: Multi-PDF Table Extraction to Consolidated Excel (Standalone)&quot;)
+    st.caption(&quot;Upload multiple PDF files to extract branch counts and consolidate them into an Excel report.&quot;)
+
+    uploaded_pdf_files = st.file_uploader(
+        &quot;Upload Multiple .pdf Files&quot;, 
+        type=[&quot;pdf&quot;], 
+        accept_multiple_files=True,
+        key=&quot;pdf_uploader&quot;
+    )
+
+    if uploaded_pdf_files:
+        if st.button(&quot;🚀 Extract and Consolidate Reports&quot;, key=&quot;btn_extract_pdf&quot;):
+            master_rows = []
+            row_counter = 1
+            progress_bar = st.progress(0)
+            status_text = st.empty()
+
+            for idx, file in enumerate(uploaded_pdf_files):
+                status_text.text(f&quot;Extracting ({idx+1}/{len(uploaded_pdf_files)}): {file.name} ...&quot;)
+                try:
+                    file.seek(0)
+                    df_summary = extract_single_pdf_to_df(file.read(), file.name, row_counter_start=row_counter)
+                    if not df_summary.empty:
+                        row_counter += len(df_summary)
+                        master_rows.append(df_summary)
+                except Exception as e:
+                    st.warning(f&quot;⚠️ Error processing {file.name}: {e}&quot;)
+
+                progress_bar.progress((idx + 1) / len(uploaded_pdf_files))
+
+            if master_rows:
+                final_df, excel_bytes, excel_name, excel_path = build_excel_report(master_rows)
+                st.session_state[&quot;stage2_final_df&quot;] = final_df
+                st.session_state[&quot;stage2_excel_bytes&quot;] = excel_bytes
+                st.session_state[&quot;stage2_excel_name&quot;] = excel_name
+                st.session_state[&quot;stage2_excel_path&quot;] = excel_path
+                st.session_state[&quot;stage2_count&quot;] = len(uploaded_pdf_files)
+                status_text.text(&quot;Extraction completed successfully!&quot;)
+            else:
+                st.session_state[&quot;stage2_final_df&quot;] = None
+                st.warning(&quot;No target table matching &#x27;適合&#x27; or &#x27;矢崎ユニット明細書&#x27; was found in the provided PDF(s).&quot;)
+
+    if st.session_state.get(&quot;stage2_final_df&quot;) is not None:
+        st.success(f&quot;Compiled summary from {st.session_state.get(&#x27;stage2_count&#x27;, 0)} PDF document(s)!&quot;)
+        st.dataframe(st.session_state[&quot;stage2_final_df&quot;], use_container_width=True)
+
+        st.download_button(
+            label=&quot;📥 Download Consolidated Excel File&quot;,
+            data=st.session_state[&quot;stage2_excel_bytes&quot;],
+            file_name=st.session_state[&quot;stage2_excel_name&quot;],
+            mime=&quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot;,
+            key=&quot;download_excel_report&quot;
+        )
+        st.info(f&quot;💾 Report also saved to: `{st.session_state[&#x27;stage2_excel_path&#x27;]}`&quot;)</code></pre>
+        </div>
+    </section>
+
+    <!-- Launcher Batch File -->
+    <section class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 mb-8 shadow-lg">
+        <h2 class="text-xl font-bold text-[#f0f6fc] mb-4 flex items-center gap-2 border-b border-[#30363d] pb-3">
+            <span>⚡</span> 7. One-Click Launcher (<code class="inline">Run_App.bat</code>)
+        </h2>
+        <p class="text-xs text-[#8b949e] mb-3">
+            Terminal မလိုဘဲ Desktop ပေါ်မှ တစ်ချက်နှိပ်ရုံဖြင့် App ပွင့်လာစေမည့် Batch Script ဖြစ်ပါသည်။
+        </p>
+        <div class="code-block">
+            <div class="code-header">
+                <span>Run_App.bat</span>
+                <button class="btn-copy" onclick="copySnippet(this)">Copy Script</button>
+            </div>
+<pre>@echo off
+cd /d "%~dp0"
+echo ======================================================
+echo    Checking requirements and starting App...
+echo ======================================================
+python -m pip install --quiet streamlit pdfplumber pandas openpyxl pywin32
+streamlit run app.py
+pause</pre>
+        </div>
+        <div class="callout callout-warn text-xs mt-3">
+            💡 <strong>အကြံပြုချက်:</strong> <code class="inline">Run_App.bat</code> ကို Right-Click &rarr; <strong>Send to &rarr; Desktop (create shortcut)</strong> ပြုလုပ်ပေးပါ။ Shortcut ကို Icon လှလှလေး ပြောင်းပေးပါက User အတွက် ပိုမို အဆင်ပြေမည် ဖြစ်ပါသည်။
+        </div>
+    </section>
+
+    <!-- Interactive Troubleshooting Matrix -->
+    <section class="bg-[#161b22] border border-[#30363d] rounded-xl p-6 mb-8 shadow-lg">
+        <div class="flex flex-wrap justify-between items-center gap-4 border-b border-[#30363d] pb-3 mb-4">
+            <h2 class="text-xl font-bold text-[#f0f6fc] flex items-center gap-2">
+                <span>🔧</span> 8. အဖြစ်များသော ပြဿနာများနှင့် ဖြေရှင်းချက်များ (Troubleshooting)
+            </h2>
+            <input type="text" id="troubleshoot-search" onkeyup="filterTroubleshoot()" placeholder="🔍 Error သို့ စာသား ရှာရန်..." class="bg-[#0d1117] border border-[#30363d] rounded-lg px-3 py-1.5 text-xs text-[#c9d1d9] focus:outline-none focus:border-[#58a6ff] w-full sm:w-64">
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-[#c9d1d9] border-collapse" id="troubleshoot-table">
+                <thead>
+                    <tr class="bg-[#21262d] text-[#f0f6fc] border border-[#30363d]">
+                        <th class="p-3 border border-[#30363d] w-1/3">ပြဿနာ / Error Message</th>
+                        <th class="p-3 border border-[#30363d] w-1/3">ဖြစ်ရသည့် အကြောင်းအရင်း</th>
+                        <th class="p-3 border border-[#30363d] w-1/3">ဖြေရှင်းနည်း</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border border-[#30363d] bg-[#0d1117]">
+                        <td class="p-3 border border-[#30363d] font-semibold text-[#d29922]">
+                            "Do you want to open the document?" Popup ပေါ်လာပြီး Conversion Timed Out ဖြစ်ခြင်း
+                        </td>
+                        <td class="p-3 border border-[#30363d] text-[#8b949e]">
+                            Bullzip Printer Setting တွင် <code class="inline">showpdf=ask</code> ဖြစ်နေ၍ User က Yes/No မနှိပ်မချင်း PDF ဖိုင်ကို Lock ခတ်ထားသောကြောင့် App က 35 စက္ကန့် စောင့်ပြီးနောက် Timed Out ဖြစ်ရခြင်း ဖြစ်ပါသည်။
+                        </td>
+                        <td class="p-3 border border-[#30363d]">
+                            နောက်ဆုံး update ပြုလုပ်ထားသော <code class="inline">app.py</code> သည် <code class="inline">showpdf=no</code> အဖြစ် အလိုအလျောက် ပိတ်ပေးပါသည်။ လက်ဖြင့် စစ်ဆေးလိုပါက Bullzip Options &rarr; Document Tab ထဲတွင် <strong>View Document after conversion</strong> ကို <strong>Never</strong> သို့ ထားရှိပါ။
+                        </td>
+                    </tr>
+                    <tr class="border border-[#30363d]">
+                        <td class="p-3 border border-[#30363d] font-semibold text-[#f85149]">
+                            Error -2147024809: Illegal characters in path
+                        </td>
+                        <td class="p-3 border border-[#30363d] text-[#8b949e]">
+                            Bullzip File Name ထဲတွင် <code class="inline">&lt;apppath&gt;</code> သို့မဟုတ် <code class="inline">&lt;inputpath&gt;</code> ကဲ့သို့ <code class="inline">&lt; &gt;</code> tag များ ပါဝင်နေခြင်း
+                        </td>
+                        <td class="p-3 border border-[#30363d]">
+                            လက်ရှိ <code class="inline">app.py</code> သည် Output Path ကို <code class="inline">runonce.ini</code> ဖြင့် dynamic ပေးပို့သောကြောင့် Bullzip Options ထဲတွင် ဘာမှ ရိုက်ထည့်စရာ မလိုတော့ပါ။ မူလအတိုင်း ထားရှိနိုင်ပါသည်။
+                        </td>
+                    </tr>
+                    <tr class="border border-[#30363d] bg-[#0d1117]">
+                        <td class="p-3 border border-[#30363d] font-semibold text-[#3fb950]">
+                            ⚡ Full Automation လုပ်ဆောင်စဉ် အချို့ဖိုင် အဆင်မပြေပါက ဘာဖြစ်မလဲ?
+                        </td>
+                        <td class="p-3 border border-[#30363d] text-[#8b949e]">
+                            .xdw ဖိုင်တစ်ခုခု ပျက်စီးနေခြင်း သို့မဟုတ် conversion timed out ဖြစ်သွားခြင်း
+                        </td>
+                        <td class="p-3 border border-[#30363d]">
+                            စနစ်သည် Error ဖြစ်သော ဖိုင်တစ်ခုတည်းအတွက်သာ Warning ပြပေးပြီး ကျန်ရှိသော ဖိုင်အားလုံးကို ဆက်လက် convert လုပ်ကာ ရရှိလာသော PDF များအားလုံးမှ ဇယားဒေတာများကို အလိုအလျောက် ဆက်လက် ထုတ်ယူပေးပါသည်။ Process တစ်ခုလုံး ရပ်တန့်မသွားပါ။
+                        </td>
+                    </tr>
+                    <tr class="border border-[#30363d]">
+                        <td class="p-3 border border-[#30363d] font-semibold text-[#58a6ff]">
+                            Excel Report ဖိုင်ကို Excel တွင် ဖွင့်ထားစဉ် Report အသစ် ထုတ်ယူပါက Permission Denied ဖြစ်နိုင်ပါသလား?
+                        </td>
+                        <td class="p-3 border border-[#30363d] text-[#8b949e]">
+                            Windows စနစ်တွင် ဖွင့်ထားဆဲ Excel ဖိုင်ကို အခြား app မှ ပြန်ရေးခြင်း (Overwrite) ကို တားမြစ်လေ့ရှိပါသည်။
+                        </td>
+                        <td class="p-3 border border-[#30363d]">
+                            App သည် စက္ကန့်အလိုက် Timestamp သီးသန့်ဖြင့် ဖိုင်အသစ် အမည်ပေးထားသဖြင့် မည်သည့်အခါမှ တိုက်ခိုက်မှု မရှိပါ။ ထို့အပြင် Error မဖြစ်စေရန် Try/Except ဖြင့် ကာကွယ်ထားပြီး Streamlit Download ခလုတ်မှတစ်ဆင့်လည်း အမြဲ ဒေါင်းလုဒ် ရယူနိုင်ပါသည်။
+                        </td>
+                    </tr>
+                    <tr class="border border-[#30363d] bg-[#0d1117]">
+                        <td class="p-3 border border-[#30363d] font-semibold text-[#f85149]">
+                            ModuleNotFoundError: No module named '...'
+                        </td>
+                        <td class="p-3 border border-[#30363d] text-[#8b949e]">
+                            လိုအပ်သော Python libraries များ install မစုံလင်သေးခြင်း
+                        </td>
+                        <td class="p-3 border border-[#30363d]">
+                            <code class="inline">Run_App.bat</code> ကို ဖွင့်ပါက လိုအပ်သော libraries များကို အလိုအလျောက် install ပြုလုပ်ပေးပါသည်။ သို့မဟုတ် CMD တွင် <code class="inline">pip install streamlit pdfplumber pandas openpyxl pywin32</code> ကို run နိုင်ပါသည်။
+                        </td>
+                    </tr>
+                    <tr class="border border-[#30363d]">
+                        <td class="p-3 border border-[#30363d] font-semibold text-[#d29922]">
+                            DocuWorks Viewer Light (dwvlt.exe) was not detected
+                        </td>
+                        <td class="p-3 border border-[#30363d] text-[#8b949e]">
+                            DocuWorks Viewer Light ဆော့ဖ်ဝဲလ် install မလုပ်ရသေးခြင်း သို့မဟုတ် Default Path (Program Files) တွင် မရှိခြင်း
+                        </td>
+                        <td class="p-3 border border-[#30363d]">
+                            FujiFilm DocuWorks Viewer Light ကို တရားဝင် installer ဖြင့် အရင် သွင်းပေးပါ။
+                        </td>
+                    </tr>
+                    <tr class="border border-[#30363d] bg-[#0d1117]">
+                        <td class="p-3 border border-[#30363d] font-semibold text-[#58a6ff]">
+                            Excel Report ထဲတွင် Plan No များ ကွက်လပ် (Blank) ဖြစ်နေခြင်း
+                        </td>
+                        <td class="p-3 border border-[#30363d] text-[#8b949e]">
+                            PDF ဇယားထဲတွင် Merged Cells များပါဝင်ပြီး Forward Fill (<code class="inline">ffill</code>) အလုပ်မလုပ်ခြင်း
+                        </td>
+                        <td class="p-3 border border-[#30363d]">
+                            နောက်ဆုံး update ထားသော <code class="inline">app.py</code> တွင် ကွက်လပ်များကို <code class="inline">pd.NA</code> သို့ ပြောင်းပြီး <code class="inline">ffill()</code> လုပ်ပေးထားသဖြင့် ဤပြဿနာ အလိုအလျောက် ပြေလည်သွားပါပြီ။
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center text-xs text-[#8b949e] border-t border-[#30363d] pt-6 mt-12">
+        <p>Yazaki DocuWorks (.xdw) to Excel Multi-Stage Pipeline Manual &bull; Generated for Client Desktop Operations</p>
+    </footer>
+
+</div>
+
+<script>
+    // Copy Snippet Logic
+    function copySnippet(button) {
+        const codeBlock = button.closest('.code-block');
+        const code = codeBlock.querySelector('pre');
+        navigator.clipboard.writeText(code.innerText).then(() => {
+            const originalText = button.innerText;
+            button.innerText = 'Copied! ✓';
+            button.style.backgroundColor = '#238636';
+            button.style.color = '#ffffff';
+            setTimeout(() => {
+                button.innerText = originalText;
+                button.style.backgroundColor = '';
+                button.style.color = '';
+            }, 2000);
+        });
+    }
+
+    // Dynamic Checklist Counter & Progress Bar
+    function updateChecklist() {
+        const checkboxes = document.querySelectorAll('.check-item');
+        const checkedCount = document.querySelectorAll('.check-item:checked').length;
+        const total = checkboxes.length;
+        
+        const counter = document.getElementById('checklist-counter');
+        const progress = document.getElementById('checklist-progress');
+
+        counter.innerText = `${checkedCount} of ${total} Ready`;
+        const percent = (checkedCount / total) * 100;
+        progress.style.width = `${percent}%`;
+
+        if (checkedCount === total) {
+            counter.className = "text-xs bg-[#23863626] text-[#3fb950] px-3 py-1 rounded-full border border-[#238636]";
+        } else {
+            counter.className = "text-xs bg-[#21262d] text-[#58a6ff] px-3 py-1 rounded-full border border-[#30363d]";
+        }
+    }
+
+    // Troubleshooting Search Filter
+    function filterTroubleshoot() {
+        const input = document.getElementById("troubleshoot-search");
+        const filter = input.value.toLowerCase();
+        const trs = document.querySelectorAll("#troubleshoot-table tbody tr");
+
+        trs.forEach(tr => {
+            const text = tr.textContent.toLowerCase();
+            if (text.includes(filter)) {
+                tr.style.display = "";
+            } else {
+                tr.style.display = "none";
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
